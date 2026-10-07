@@ -12,13 +12,13 @@ python scaffold.py
 
 - [x] **1.** warp_reduce_sum
 - [x] **2.** warp_reduce_max
-- [ ] **3.** block_reduce_sum
-- [ ] **4.** block_reduce_max
-- [ ] **5.** add_residual_kernel
-- [ ] **6.** gelu_kernel
-- [ ] **7.** silu_kernel
-- [ ] **8.** swiglu_kernel
-- [ ] **9.** rmsnorm_kernel
+- [x] **3.** block_reduce_sum
+- [x] **4.** block_reduce_max
+- [x] **5.** add_residual_kernel
+- [x] **6.** gelu_kernel
+- [x] **7.** silu_kernel
+- [x] **8.** swiglu_kernel
+- [x] **9.** rmsnorm_kernel
 - [ ] **10.** layernorm_kernel
 - [ ] **11.** fused_add_rmsnorm_kernel
 - [ ] **12.** softmax_row_kernel
