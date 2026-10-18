@@ -2,7 +2,13 @@
 
 Implement high-performance CUDA kernels for LLM inference, from warp/block reductions and activations through fused RMSNorm, Softmax, RoPE, and SwiGLU MLP blocks. Learn the GPU primitives that make modern transformer inference efficient.
 
-The folder kernels has all these kernels: and model.py has half of these because its better to write kernels separately and as .cu whereas model.py tracks python contribution instead of cuda
+## How to run
+
+```bash
+python scaffold.py
+```
+
+## Steps
 
 - [x] **1.** warp_reduce_sum
 - [x] **2.** warp_reduce_max
@@ -27,3 +33,4 @@ The folder kernels has all these kernels: and model.py has half of these because
 
 ---
 
+Built on Deep-ML.
