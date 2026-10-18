@@ -250,8 +250,50 @@ __global__ void layernorm_kernel(const float* x, const float* weight, const floa
     }
 }
 
-# Step 11 - fused_add_rmsnorm_kernel (not yet solved)
-# TODO: implement
+# Step 11 - fused_add_rmsnorm_kernel
+__global__ void fused_add_rmsnorm_kernel(
+    const float* x,
+    const float* residual,
+    const float* weight,
+    float* out,
+    float* residual_out,
+    int n,
+    float eps
+) {
+    // TODO: fuse residual addition with RMSNorm (one block per row)
+    int tid = threadIdx.x;
+    __shared__ float s[256];
+    for (int i=tid;i<n;i+=blockDim.x){
+        residual_out[blockIdx.x*n+i]=x[blockIdx.x*n+i]+residual[blockIdx.x*n+i];
+    }
+    __syncthreads();
+    float temp=0.0f;
+    for (int i=tid; i<n; i+=blockDim.x){
+        temp += residual_out[blockIdx.x*n+i] * residual_out[blockIdx.x*n+i];
+    }
+    s[tid]=temp;
+    __syncthreads();
+    temp = 0.0f;
+    if (tid < 32) {
+        for (int i=tid; i<blockDim.x; i+=32) {
+            temp += s[i];
+            }
+    }
+    float val=temp;
+    val=val+__shfl_down_sync(0xffffffff, val, 16);
+    val=val+__shfl_down_sync(0xffffffff, val, 8);
+    val=val+__shfl_down_sync(0xffffffff, val, 4);
+    val=val+__shfl_down_sync(0xffffffff, val, 2);
+    val=val+__shfl_down_sync(0xffffffff, val, 1);
+    if(tid==0){
+        s[tid]=val/n;
+    }
+    __syncthreads();
+    float inv_rms = 1/sqrtf(s[0]+eps);
+    for (int i=tid;i<n;i+=blockDim.x){
+        out[blockIdx.x*n+i]=inv_rms*residual_out[blockIdx.x*n+i]*weight[i];
+    }
+}
 
 # Step 12 - softmax_row_kernel (not yet solved)
 # TODO: implement
