@@ -2,13 +2,7 @@
 
 Implement high-performance CUDA kernels for LLM inference, from warp/block reductions and activations through fused RMSNorm, Softmax, RoPE, and SwiGLU MLP blocks. Learn the GPU primitives that make modern transformer inference efficient.
 
-## How to run
-
-```bash
-python scaffold.py
-```
-
-## Steps
+The folder kernels has all these kernels: and model.py has half of these because its better to write kernels separately and as .cu whereas model.py tracks python contribution instead of cuda
 
 - [x] **1.** warp_reduce_sum
 - [x] **2.** warp_reduce_max
@@ -19,7 +13,7 @@ python scaffold.py
 - [x] **7.** silu_kernel
 - [x] **8.** swiglu_kernel
 - [x] **9.** rmsnorm_kernel
-- [ ] **10.** layernorm_kernel
+- [x] **10.** layernorm_kernel
 - [ ] **11.** fused_add_rmsnorm_kernel
 - [ ] **12.** softmax_row_kernel
 - [ ] **13.** causal_softmax_kernel
@@ -33,4 +27,3 @@ python scaffold.py
 
 ---
 
-Built on Deep-ML.
