@@ -24,7 +24,7 @@ python scaffold.py
 - [x] **12.** softmax_row_kernel
 - [x] **13.** causal_softmax_kernel
 - [x] **14.** embedding_lookup_kernel
-- [ ] **15.** rope_kernel
+- [x] **15.** rope_kernel
 - [x] **16.** linear_kernel
 - [x] **17.** fused_linear_bias_gelu_kernel
 - [x] **18.** mlp_swiglu_forward
