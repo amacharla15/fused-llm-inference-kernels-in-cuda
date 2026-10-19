@@ -32,6 +32,7 @@ __global__ void softmax_row_kernel(const float* x, float* out, int rows, int col
     for(int i=tid;i<cols;i=i+blockDim.x){
         temp=temp+out[cols*blockIdx.x+i];
     }
+    __syncthreads();
     s[tid]=temp;
     __syncthreads();
     temp=0.0f;

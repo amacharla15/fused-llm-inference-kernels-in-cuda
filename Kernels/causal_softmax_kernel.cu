@@ -38,6 +38,7 @@ __global__ void causal_softmax_kernel(const float* x, float* out, int rows, int 
     for(int i=tid;i<cols;i=i+blockDim.x){
         temp+=out[cols*blockIdx.x+i];
     }
+    __syncthreads();
     s[tid]=temp;
     __syncthreads();
     temp=0.0f;

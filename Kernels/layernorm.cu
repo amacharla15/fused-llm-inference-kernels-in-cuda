@@ -30,6 +30,7 @@ __global__ void layernorm_kernel(const float* x,const float* weight,const float*
         float diff=x[row*n+i]-mean;
         temp+=diff*diff;
     }
+    __syncthreads();
     s[tid]=temp;
     __syncthreads();
     temp=0.0f;
